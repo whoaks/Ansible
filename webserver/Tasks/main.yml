@@ -1,0 +1,56 @@
+---
+# tasks file for myserver
+
+- name: install httpd
+  package:
+    name: "httpd"
+    state: "present"
+  register: x
+  become: true
+  become_user: root
+  become_method: sudo
+
+- name: Cofiguring WebServer
+  template:
+     dest: /etc/httpd/conf.d/akash.conf
+     src: locals.conf.j2
+  when: x.rc == 0
+  notify: Restart webserver
+  become: true
+  become_user: root
+  become_method: sudo
+
+- name: Creation of Directory
+  file:
+      state: directory
+      dest:  "{{ dcdir }}"
+  register: y
+  become: true
+  become_user: root
+  become_method: sudo
+
+- name: Copying Web Page from github
+  get_url:
+      dest: "{{ dcdir }}"
+      url: "https://raw.githubusercontent.com/whoaks/Ansible/master/index.html"
+  when: y.failed ==  false
+  become: true
+  become_user: root
+  become_method: sudo
+  
+- name: Disabling SELINUX
+  selinux:
+    state: disabled
+  become: true
+  become_user: root
+  become_method: sudo
+
+- name: start WebServer
+  service:
+      name: "httpd"
+      state: restarted
+  become: true
+  become_user: root
+  become_method: sudo
+
+
