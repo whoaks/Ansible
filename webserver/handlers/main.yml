@@ -1,0 +1,10 @@
+---
+# handlers file for myserver
+
+- name: Restart webserver
+  service:
+     name: httpd
+     state: restarted
+  become: true
+  become_user: root
+  become_method: sudo
