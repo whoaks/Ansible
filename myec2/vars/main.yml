@@ -1,0 +1,6 @@
+---
+# vars file for myec2
+
+image: "ami-052c08d70def0ac62"
+ec2_instance_type: "t2.micro"
+ec2_region: "ap-south-1"
