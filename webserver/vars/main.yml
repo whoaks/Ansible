@@ -1,0 +1,5 @@
+---
+# vars file for myserver
+
+dcdir: "/var/www/akash"
+port: 1234
