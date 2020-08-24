@@ -1,0 +1,5 @@
+- hosts: localhost
+  vars_files:
+  - credentials.yml
+  roles:
+  - myec2
