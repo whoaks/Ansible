@@ -1,4 +1,3 @@
-[root@controller myec2]# cat vars/main.yml
 ---
 # vars file for myec2
 
